@@ -14,6 +14,7 @@ class ViewController: UIViewController {
     var gameState = [Int](count:9, repeatedValue: 0)
     var winningCombinations = [[0,1,2], [3,4,5], [6,7,8],[0,3,6], [1,4,7], [2,5,8], [0,4,8], [2,4,6]]
     var gameActive = true
+    var empate = 1
     
     @IBOutlet weak var button: UIButton!
     
@@ -25,7 +26,7 @@ class ViewController: UIViewController {
         activePlayer = 1
         gameActive = true
         gameState = [Int](count:9, repeatedValue: 0)
-        
+        empate = 1
         
         for i in 0 ..< 9 {
             var button: UIButton
@@ -36,6 +37,7 @@ class ViewController: UIViewController {
     }
     
     @IBAction func buttonPressed(sender: AnyObject) {
+        empate += 1
         var image = UIImage()
         if gameState[sender.tag] == 0 && gameActive == true{
 
@@ -72,7 +74,17 @@ class ViewController: UIViewController {
                 }
             }
        }
+        //Solucionar la solucion al empate sin ganador
+        if empate == 10 {
+            playAgainButton.hidden = false
+            UIView.animateWithDuration(0.5, animations: {
+                self.playAgainButton.center = CGPointMake(self.playAgainButton.center.x + 400, self.playAgainButton.center.y)
+            })
+
+        }
     }
+    
+
     
     func hideGameOver(){
         gameOverLabel.hidden = true
